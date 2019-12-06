@@ -1,9 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const morgan = require('morgan');
+const dotenv = require('dotenv');
 const app = express();
 
+dotenv.config();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 
 
 const MongoClient = require('mongodb').MongoClient;
