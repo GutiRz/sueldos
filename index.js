@@ -1,15 +1,20 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const morgan = require('morgan');
+const dotenv = require('dotenv');
 const app = express();
 
+dotenv.config();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 
 
 const MongoClient = require('mongodb').MongoClient;
 
-const client = new MongoClient(uri, { useNewUrlParser: true });
+const client = new MongoClient(process.env.DB_CONNECT, { useNewUrlParser: true });
 client.connect(err => {
+  console.log('Connected to DB')
   const collection = client.db("test").collection("devices");
   // perform actions on the collection object
   client.close();
