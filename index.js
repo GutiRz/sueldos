@@ -7,21 +7,23 @@ app.use(bodyParser.json());
 
 
 const MongoClient = require('mongodb').MongoClient;
-
-const client = new MongoClient(uri, { useNewUrlParser: true });
+const uri = "mongodb+srv://admin:ORSigwjaBhSig1Mc@cluster0-0bbz6.mongodb.net/test?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
-  const collection = client.db("test").collection("devices");
+  const collection = client.db("fifafriends").collection("sueldos");
   // perform actions on the collection object
+  var query = { equipo: "Racing de Santander" };
+  collection.find(query).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    //db.close();
+  });
+
   client.close();
 });
 
 
-
-
-
-
-
-let usuario = {
+/* let usuario = {
   nombre: "",
   apellido: ""
 };
@@ -158,3 +160,4 @@ app.use(function(req, res, next) {
 app.listen(3000, () => {
   console.log("El servidor está inicializado en el puerto 3000");
 });
+ */
