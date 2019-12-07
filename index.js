@@ -35,4 +35,30 @@ app.get("/equipo/:loginCode", (req, res) => {
   }
 });
 
+app.patch("/equipo/:loginCode",  (req, res) => {
+  if(req.body.plantilla) {
+    client.connect(async (err) => {
+      const collection = client.db("fifafriends").collection("sueldos");
+      const query = { loginCode: req.params.loginCode };
+      try{
+        await  collection.updateOne(query, {
+          $set: {
+            plantilla: req.body.plantilla
+          }
+        });
+        res.json({
+          message: 'Plantilla actualizada correctamente',
+          plantilla: req.body.plantilla
+        })
+      } catch(err){
+        res.status(500).send('Error al actualizar la plantilla');
+      }
+      
+      
+    })
+  } else {
+    res.status(500).send("No se ha recibido ninguna plantilla");
+  }
+})
+
 app.listen(port, () => console.log(`Servidor iniciado en el puerto ${port}`));
