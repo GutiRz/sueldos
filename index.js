@@ -36,22 +36,24 @@ app.get("/equipo/:loginCode", (req, res) => {
 });
 
 app.patch("/equipo/:loginCode",  (req, res) => {
-  if(req.body.plantilla) {
+  if(req.body.plantilla && req.body.patrocinador) {
     client.connect(async (err) => {
       const collection = client.db("fifafriends").collection("sueldos");
       const query = { loginCode: req.params.loginCode };
       try{
         await  collection.updateOne(query, {
           $set: {
+            patrocinador: req.body.patrocinador,
             plantilla: req.body.plantilla
           }
         });
         res.json({
           message: 'Plantilla actualizada correctamente',
+          patrocinador: req.body.patrocinador,
           plantilla: req.body.plantilla
         })
       } catch(err){
-        res.status(500).send('Error al actualizar la plantilla');
+        res.status(500).send('Error al actualizar plantilla y patrocinador');
       }
       
       
