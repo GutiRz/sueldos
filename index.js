@@ -11,11 +11,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 
+
 const MongoClient = require("mongodb").MongoClient;
 const client = new MongoClient(process.env.DB_CONNECT, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+client.connect(err => console.log('connected'))
+
+app.get('/equipo', (req,res) => {  
+    const collection = client.db("fifafriends").collection("sueldos")
+    collection.find().toArray((err, result) => {
+      if(err) throw err;
+      res.send(result);
+    })  
+})
 
 app.get("/equipo/:loginCode", (req, res) => {
   if (req.params.loginCode) {
