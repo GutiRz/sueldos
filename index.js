@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const morgan = require("morgan");
+//const morgan = require("morgan");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const path = require('path');
@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000
 dotenv.config();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(morgan("dev"));
+//app.use(morgan("dev"));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
