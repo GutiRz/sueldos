@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "build": "rimraf dist && webpack --mode development"    
+    "build": "webpack --mode development"    
   },
   "author": "germang",
   "license": "ISC",
