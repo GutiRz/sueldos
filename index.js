@@ -3,14 +3,16 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const path = require('path');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 5000
 
 dotenv.config();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.use(cors());
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 const generateRandomCode = (() => {
   const USABLE_CHARACTERS = "abcdefghijklmnopqrstuvwxyz0123456789".split("");
@@ -28,6 +30,8 @@ const client = new MongoClient(process.env.DB_CONNECT, {
   useUnifiedTopology: true
 });
 client.connect(err => console.log("connected"));
+
+
 
 app.post("/equipo",async (req, res) => {
   const collection = client.db("fifafriends").collection("sueldos");
@@ -98,6 +102,10 @@ app.patch("/equipo/:loginCode", (req, res) => {
   } else {
     res.status(500).send("No se ha recibido ninguna plantilla");
   }
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
 app.listen(port, () => console.log(`Servidor iniciado en el puerto ${port}`));
