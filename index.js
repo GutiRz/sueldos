@@ -12,12 +12,42 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.use(cors());
 
+const generateRandomCode = (() => {
+  const USABLE_CHARACTERS = "abcdefghijklmnopqrstuvwxyz0123456789".split("");
+
+  return length => {
+    return new Array(length).fill(null).map(() => {
+      return USABLE_CHARACTERS[Math.floor(Math.random() * USABLE_CHARACTERS.length)];
+    }).join("");
+  }
+})();
+
 const MongoClient = require("mongodb").MongoClient;
 const client = new MongoClient(process.env.DB_CONNECT, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 client.connect(err => console.log("connected"));
+
+app.post("/equipo",async (req, res) => {
+  const collection = client.db("fifafriends").collection("sueldos");
+  const {equipo, presupuesto, totalSueldos, patrocinador, escudo, plantilla} = req.body
+  const team = {
+    loginCode: generateRandomCode(6),
+    equipo,
+    presupuesto,
+    totalSueldos,
+    patrocinador,
+    escudo,
+    plantilla
+  }
+  try {
+    await collection.save(team);
+    res.json({message:"Equipo insertado", team})
+  } catch(err) {
+    res.status(500).send("Error al guardar el equipo" + err);
+  }
+})
 
 app.get("/equipo", (req, res) => {
   const collection = client.db("fifafriends").collection("sueldos");
@@ -41,6 +71,7 @@ app.get("/equipo/:loginCode", (req, res) => {
   }
 });
 
+
 app.patch("/equipo/:loginCode", (req, res) => {
   if (req.body.plantilla && req.body.patrocinador) {
     client.connect(async err => {
@@ -50,13 +81,15 @@ app.patch("/equipo/:loginCode", (req, res) => {
         await collection.updateOne(query, {
           $set: {
             patrocinador: req.body.patrocinador,
-            plantilla: req.body.plantilla
+            plantilla: req.body.plantilla,
+            totalSueldos: req.body.totalSueldos
           }
         });
         res.json({
           message: "Plantilla actualizada correctamente",
           patrocinador: req.body.patrocinador,
-          plantilla: req.body.plantilla
+          plantilla: req.body.plantilla,
+          totalSueldos: req.body.totalSueldos
         });
       } catch (err) {
         res.status(500).send("Error al actualizar plantilla y patrocinador");
