@@ -9,10 +9,10 @@ const port = process.env.PORT || 5000
 
 const http = require("http");
 const https = require("https");
-let client = http;
+let clientHttp = http;
 const url = new URL('https://dry-woodland-89666.herokuapp.com');
 
-client = (url.protocol == "https") ? https:client;
+clientHttp = (url.protocol == "https") ? https:client;
 
 setInterval(function() {
     client.get(url);
