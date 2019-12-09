@@ -42,6 +42,33 @@ const client = new MongoClient(process.env.DB_CONNECT, {
 });
 client.connect(err => console.log("connected"));
 
+const transfer = async (nombreJugador, nombreOrigen, nombreDestino) => {
+  const collection = client.db("fifafriends").collection("sueldos");
+  let origen = await collection.find({equipo: nombreOrigen}).toArray();
+  let destino = await collection.find({equipo: nombreDestino}).toArray();
+  
+  let jugador = origen[0].plantilla.filter(jug => jug.nombre == nombreJugador)[0];
+  let plantillaOrigen = origen[0].plantilla.filter(jug => jug.nombre != nombreJugador);
+  let plantillaDestino = [...destino[0].plantilla, jugador ];
+  
+  await collection.updateOne({equipo: nombreOrigen}, {
+    $set: {
+      plantilla: plantillaOrigen
+    }
+  })
+
+  await collection.updateOne({equipo: nombreDestino}, {
+    $set: {
+      plantilla: plantillaDestino
+    }
+  })
+}
+
+
+app.get('/transfer', (req, res) => {
+  transfer('', '', '');
+})
+
 
 
 app.post("/equipo",async (req, res) => {
@@ -118,5 +145,7 @@ app.patch("/equipo/:loginCode", (req, res) => {
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
+
+
 
 app.listen(port, () => console.log(`Servidor iniciado en el puerto ${port}`));
