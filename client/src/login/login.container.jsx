@@ -11,7 +11,7 @@ export const LoginContainer = () => {
   const [team, setTeam] = React.useState({});
 
   React.useEffect(() => {
-    fetch(`/equipo/${teamCode}`)
+    fetch(`http://localhost:5000/equipo/${teamCode}`)
       .then(response => response.json())
       .then(data => {
         data[0] ? setTeamExist(true) : setTeamExist(false);
