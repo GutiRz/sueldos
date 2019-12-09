@@ -7,9 +7,9 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 5000
 
-var http = require("http");
-var https = require("https");
-client = http;
+const http = require("http");
+const https = require("https");
+let client = http;
 const url = new URL('https://dry-woodland-89666.herokuapp.com');
 
 client = (url.protocol == "https") ? https:client;
