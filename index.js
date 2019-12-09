@@ -15,7 +15,7 @@ const url = new URL('https://dry-woodland-89666.herokuapp.com');
 clientHttp = (url.protocol == "https") ? https:clientHttp;
 
 setInterval(function() {
-    client.get(url);
+    clientHttp.get(url);
 }, 600000); 
 
 dotenv.config();
