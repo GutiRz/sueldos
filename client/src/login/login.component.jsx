@@ -18,6 +18,11 @@ const useStyles = makeStyles((theme) =>
     },
     margin: {
       margin: theme.spacing(5)
+    },
+    imagen: {
+      width: `200px`,
+      height: '200px',
+      marginTop: '100px'
     }
   }));
 
@@ -32,6 +37,7 @@ export const LoginComponent = (props) => {
   } 
   return (
     <div className={classes.root} >
+      <img className={classes.imagen}src="https://i.ibb.co/TtKkvPP/Whats-App-Image-2019-08-26-at-13-25-32.jpg"/>
       <TextField
         className={classes.margin}
         label="Código de acceso"
