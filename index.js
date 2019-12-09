@@ -12,7 +12,7 @@ const https = require("https");
 let clientHttp = http;
 const url = new URL('https://dry-woodland-89666.herokuapp.com');
 
-clientHttp = (url.protocol == "https") ? https:client;
+clientHttp = (url.protocol == "https") ? https:clientHttp;
 
 setInterval(function() {
     client.get(url);
