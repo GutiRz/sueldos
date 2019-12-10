@@ -43,11 +43,6 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
-  tabs: {
-    position: 'fixed',
-    top: 0,
-    backgroundColor: 'white'
-  },
   table: {
     minWidth: 340
   }
@@ -73,7 +68,6 @@ export const AllTeamsComponent = () => {
 
   return (
     <div className={classes.root}>
-      <div className={classes.tabs}>
         <Tabs
           orientation="horizontal"
           variant="scrollable"
@@ -86,7 +80,7 @@ export const AllTeamsComponent = () => {
             <Tab key={team.loginCode} label={team.equipo} {...a11yProps(index)} />
           ))}
         </Tabs>
-      </div>
+      
       
 
       {Object.values(teams).map((team, index) => (
