@@ -73,18 +73,21 @@ export const AllTeamsComponent = () => {
 
   return (
     <div className={classes.root}>
-      <Tabs
-        orientation="horizontal"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Vertical tabs example"
-        className={classes.tabs}
-      >
-        {Object.values(teams).map((team, index) => (
-          <Tab key={team.loginCode} label={team.equipo} {...a11yProps(index)} />
-        ))}
-      </Tabs>
+      <div className={classes.tabs}>
+        <Tabs
+          orientation="horizontal"
+          variant="scrollable"
+          value={value}
+          onChange={handleChange}
+          aria-label="Vertical tabs example"
+          className={classes.tabs}
+        >
+          {Object.values(teams).map((team, index) => (
+            <Tab key={team.loginCode} label={team.equipo} {...a11yProps(index)} />
+          ))}
+        </Tabs>
+      </div>
+      
 
       {Object.values(teams).map((team, index) => (
         <TabPanel value={value} index={index} key={team.loginCode}>
