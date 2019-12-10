@@ -44,6 +44,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   tabs: {
+    position: 'sticky',
+    top: 0,
+    backgroundColor: 'white'
   },
   table: {
     minWidth: 340
