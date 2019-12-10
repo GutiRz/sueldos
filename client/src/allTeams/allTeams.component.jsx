@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   tabs: {
-    position: 'sticky',
+    position: 'fixed',
     top: 0,
     backgroundColor: 'white'
   },
