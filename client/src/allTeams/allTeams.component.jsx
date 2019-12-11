@@ -85,7 +85,7 @@ export const AllTeamsComponent = () => {
 
       {Object.values(teams).map((team, index) => (
         <TabPanel value={value} index={index} key={team.loginCode}>
-
+          <Typography variant="h5" style={{marginTop: '30px'}}>Total sueldos:{team.totalSueldos.toFixed(2)}</Typography>
           <Table className={classes.table} aria-label="simple table" >
             <TableHead>
               <TableRow>
