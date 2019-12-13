@@ -52,9 +52,12 @@ const transfer = async (nombreJugador, nombreOrigen, nombreDestino) => {
   let totalSalarioOrigen = plantillaOrigen.reduce((total, jugador) => total + jugador.sueldo , 0);
   let plantillaDestino = [...destino[0].plantilla, jugador ];
   let totalSalarioDestino = plantillaDestino.reduce((total, jugador) => total + jugador.sueldo, 0);
-  totalSalarioOrigen = parseFloat(totalSalarioOrigen).toFixed(2);
-  totalSalarioDestino = parseFloat(totalSalarioDestino).toFixed(2) 
- 
+  totalSalarioOrigen = totalSalarioOrigen.toFixed(2);
+  totalSalarioDestino = totalSalarioDestino.toFixed(2);
+  totalSalarioOrigen = parseFloat(totalSalarioOrigen);
+  totalSalarioDestino = parseFloat(totalSalarioDestino);
+  console.log(typeof totalSalarioOrigen, totalSalarioOrigen);
+  
 
   
   await collection.updateOne({equipo: nombreOrigen}, {
