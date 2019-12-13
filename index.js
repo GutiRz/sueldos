@@ -49,24 +49,38 @@ const transfer = async (nombreJugador, nombreOrigen, nombreDestino) => {
   
   let jugador = origen[0].plantilla.filter(jug => jug.nombre == nombreJugador)[0];
   let plantillaOrigen = origen[0].plantilla.filter(jug => jug.nombre != nombreJugador);
+  let totalSalarioOrigen = plantillaOrigen.reduce((total, jugador) => total + jugador.sueldo , 0);
   let plantillaDestino = [...destino[0].plantilla, jugador ];
+  let totalSalarioDestino = plantillaDestino.reduce((total, jugador) => total + jugador.sueldo, 0);
+  totalSalarioOrigen = parseFloat(totalSalarioOrigen).toFixed(2);
+  totalSalarioDestino = parseFloat(totalSalarioDestino).toFixed(2) 
+ 
+
   
   await collection.updateOne({equipo: nombreOrigen}, {
     $set: {
-      plantilla: plantillaOrigen
+      plantilla: plantillaOrigen,
+      totalSueldos: totalSalarioOrigen
     }
   })
 
   await collection.updateOne({equipo: nombreDestino}, {
     $set: {
-      plantilla: plantillaDestino
+      plantilla: plantillaDestino,
+      totalSueldos: totalSalarioDestino
     }
   })
 }
 
 
-app.get('/transfer', (req, res) => {
-  transfer('', '', '');
+app.post('/transfer', (req, res) => {
+  const {jugador, origen, destino} = req.body
+  transfer(jugador, origen, destino);
+  res.json({
+    jugador,
+    origen,
+    destino    
+  })
 })
 
 

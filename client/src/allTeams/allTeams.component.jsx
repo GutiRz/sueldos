@@ -6,6 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Chip from "@material-ui/core/Chip";
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -100,7 +101,7 @@ export const AllTeamsComponent = () => {
               {team.plantilla.map(jugador => (
               <TableRow key={jugador.nombre}>              
                 <TableCell className={classes.tableCell}>{jugador.nombre}</TableCell>
-                <TableCell className={classes.tableCell}>{jugador.posicion}</TableCell>
+                <TableCell className={classes.tableCell}><Chip style={{ backgroundColor: (jugador.posicion == 'POR') ? '#ff6e40' : ''}} label={jugador.posicion}/></TableCell>
                 <TableCell className={classes.tableCell}>{jugador.sueldo}</TableCell>
                 <TableCell  className={classes.tableCell}>{jugador.clausula}</TableCell>
                 <TableCell  className={classes.tableCell}>{jugador.transfermarket}</TableCell>
