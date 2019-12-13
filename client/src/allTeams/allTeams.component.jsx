@@ -136,7 +136,7 @@ export const AllTeamsComponent = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {team.plantilla.map(jugador => (
+              {sortByPosition(team.plantilla).map(jugador => (
               <TableRow key={jugador.nombre}>              
                 <TableCell className={classes.tableCell}>{jugador.nombre}</TableCell>
                 <TableCell className={classes.tableCell}><Chip style={{ 
