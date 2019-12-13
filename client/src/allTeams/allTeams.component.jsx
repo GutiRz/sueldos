@@ -42,12 +42,36 @@ function a11yProps(index) {
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper
   },
   table: {
     minWidth: 340
   }
 }));
+
+function sortByPosition(array) {
+  var sortOrder = [
+    "POR",
+    "DFC",
+    "LTD",
+    "LTI",
+    "MCD",
+    "MC",
+    "MCO",
+    "MD",
+    "MI",
+    "DC",
+    "SD",
+    "ED",
+    "EI"
+  ];
+
+  array.sort(
+    (a, b) => sortOrder.indexOf(a.posicion) - sortOrder.indexOf(b.posicion)
+  );
+
+  return array;
+}
 
 export const AllTeamsComponent = () => {
   const [teams, setTeams] = React.useState({});
@@ -63,53 +87,84 @@ export const AllTeamsComponent = () => {
     fetch(`/equipo`)
       .then(response => response.json())
       .then(data => {
-        setTeams(data);
+        setTeams(data.sort((a, b) => (a.equipo > b.equipo ? 1 : -1)));
       });
   }, []);
 
   return (
     <div className={classes.root}>
-        <Tabs
-          orientation="horizontal"
-          variant="scrollable"
-          value={value}
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          className={classes.tabs}
-        >
-          {Object.values(teams).map((team, index) => (
-            <Tab key={team.loginCode} label={team.equipo} {...a11yProps(index)} />
+      <Tabs
+        orientation="horizontal"
+        variant="scrollable"
+        value={value}
+        onChange={handleChange}
+        aria-label="Vertical tabs example"
+        className={classes.tabs}
+      >
+        {Object.values(teams)
+          .sort((a, b) => (a.equipo > b.equipo ? 1 : -1))
+          .map((team, index) => (
+            <Tab
+              key={team.loginCode}
+              label={team.equipo}
+              {...a11yProps(index)}
+            />
           ))}
-        </Tabs>
-      
-      
+      </Tabs>
 
       {Object.values(teams).map((team, index) => (
         <TabPanel value={value} index={index} key={team.loginCode}>
-          <Typography variant="h5" style={{marginTop: '30px'}}>Total sueldos:{team.totalSueldos.toFixed(2)}</Typography>
-          <Table className={classes.table} aria-label="simple table" >
+          <Typography variant="h5" style={{ marginTop: "30px" }}>
+            Total sueldos:{team.totalSueldos.toFixed(2)}
+          </Typography>
+          <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
-              <TableCell className={classes.tableCell}><b>Nombre</b></TableCell>
-              <TableCell className={classes.tableCell}><b>Posición</b></TableCell>
-              <TableCell className={classes.tableCell}><b>Sueldo</b></TableCell>
-              <TableCell className={classes.tableCell}><b>Cláusula</b></TableCell>
-              <TableCell className={classes.tableCell}><b>Transfermarkt</b></TableCell>
-            </TableRow>
+                <TableCell className={classes.tableCell}>
+                  <b>Nombre</b>
+                </TableCell>
+                <TableCell className={classes.tableCell}>
+                  <b>Posición</b>
+                </TableCell>
+                <TableCell className={classes.tableCell}>
+                  <b>Sueldo</b>
+                </TableCell>
+                <TableCell className={classes.tableCell}>
+                  <b>Cláusula</b>
+                </TableCell>
+                <TableCell className={classes.tableCell}>
+                  <b>Transfermarkt</b>
+                </TableCell>
+              </TableRow>
             </TableHead>
             <TableBody>
-              {team.plantilla.map(jugador => (
-              <TableRow key={jugador.nombre}>              
-                <TableCell className={classes.tableCell}>{jugador.nombre}</TableCell>
-                <TableCell className={classes.tableCell}><Chip style={{ backgroundColor: (jugador.posicion == 'POR') ? '#ff6e40' : ''}} label={jugador.posicion}/></TableCell>
-                <TableCell className={classes.tableCell}>{jugador.sueldo}</TableCell>
-                <TableCell  className={classes.tableCell}>{jugador.clausula}</TableCell>
-                <TableCell  className={classes.tableCell}>{jugador.transfermarket}</TableCell>
-              </TableRow>   
+              {sortByPosition(team.plantilla).map(jugador => (
+                <TableRow key={jugador.nombre}>
+                  <TableCell className={classes.tableCell}>
+                    {jugador.nombre}
+                  </TableCell>
+                  <TableCell className={classes.tableCell}>
+                    <Chip
+                      style={{
+                        backgroundColor:
+                          jugador.posicion == "POR" ? "#ff6e40" : ""
+                      }}
+                      label={jugador.posicion}
+                    />
+                  </TableCell>
+                  <TableCell className={classes.tableCell}>
+                    {jugador.sueldo}
+                  </TableCell>
+                  <TableCell className={classes.tableCell}>
+                    {jugador.clausula}
+                  </TableCell>
+                  <TableCell className={classes.tableCell}>
+                    {jugador.transfermarket}
+                  </TableCell>
+                </TableRow>
               ))}
             </TableBody>
           </Table>
-          
         </TabPanel>
       ))}
     </div>
