@@ -13,7 +13,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { width } from "@material-ui/system";
+import EuroIcon from '@material-ui/icons/Euro';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -101,7 +101,18 @@ export const AllTeamsComponent = () => {
               {team.plantilla.map(jugador => (
               <TableRow key={jugador.nombre}>              
                 <TableCell className={classes.tableCell}>{jugador.nombre}</TableCell>
-                <TableCell className={classes.tableCell}><Chip style={{ backgroundColor: (jugador.posicion == 'POR') ? '#ff6e40' : ''}} label={jugador.posicion}/></TableCell>
+                <TableCell className={classes.tableCell}><Chip style={{ 
+                  backgroundColor: (jugador.posicion == 'POR') ? '#ff6e40' :
+                 (jugador.posicion === 'DFC') ? '#ffee58' :
+                  (jugador.posicion === 'LTI' || jugador.posicion === 'LTD') ? '#fbc02d' : 
+                  (jugador.posicion === 'MCD') ? '#2e7d32' :
+                  ((jugador.posicion === 'MC') ? '#4caf50': 
+                  (jugador.posicion === 'MCO') ? '#81c784':
+                  (jugador.posicion === 'MD' || (jugador.posicion === 'MI')) ? '#c8e6c9' :
+                  (jugador.posicion === 'DC') ? '#2196f3' : 
+                  (jugador.posicion === 'EI' || jugador.posicion === 'ED') ? '#90caf9' :
+                  (jugador.posicion === 'SD') ? '#1565c0' : ''
+                  )}} label={jugador.posicion}/></TableCell>
                 <TableCell className={classes.tableCell}>{jugador.sueldo}</TableCell>
                 <TableCell  className={classes.tableCell}>{jugador.clausula}</TableCell>
                 <TableCell  className={classes.tableCell}>{jugador.transfermarket}</TableCell>
