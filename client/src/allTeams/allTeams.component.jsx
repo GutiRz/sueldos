@@ -1,5 +1,4 @@
 import * as React from "react";
-import Container from "@material-ui/core/Container";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -13,7 +12,6 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import EuroIcon from '@material-ui/icons/Euro';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
