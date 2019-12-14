@@ -6,6 +6,8 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Chip from "@material-ui/core/Chip";
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -73,7 +75,7 @@ function sortByPosition(array) {
 
 export const AllTeamsComponent = () => {
   const [teams, setTeams] = React.useState({});
-
+  const [playersList, setPlayersList] = React.useState([]);
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -84,10 +86,12 @@ export const AllTeamsComponent = () => {
   React.useEffect(() => {
     fetch(`/equipo`)
       .then(response => response.json())
-      .then(data => {
+      .then(data => {        
         setTeams(data.sort((a, b) => (a.equipo > b.equipo ? 1 : -1)));
+        setPlayersList(data.map(team => [...playersList, ...team.plantilla]).flat());
       });
   }, []);
+
 
   return (
     <div className={classes.root}>
@@ -111,7 +115,18 @@ export const AllTeamsComponent = () => {
       </Tabs>
 
       {Object.values(teams).map((team, index) => (
+        <>
+        
         <TabPanel value={value} index={index} key={team.loginCode}>
+        <Autocomplete
+        id="combo-box-demo"
+        options={playersList}
+        getOptionLabel={(option) => option.nombre}
+        style={{ width: 300 }}
+        renderInput={params => (
+          <TextField {...params} label="Jugador ya en liga" variant="outlined" fullWidth />
+        )}
+      />
           <Typography variant="h5" style={{ marginTop: "30px" }}>
             Total sueldos:{team.totalSueldos.toFixed(2)}
           </Typography>
@@ -159,6 +174,7 @@ export const AllTeamsComponent = () => {
             </TableBody>
           </Table>
         </TabPanel>
+        </>
       ))}
     </div>
   );
