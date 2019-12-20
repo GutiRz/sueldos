@@ -7,16 +7,16 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 5000
 
-const http = require("http");
-const https = require("https");
-let clientHttp = http;
-const url = new URL('https://dry-woodland-89666.herokuapp.com');
+// const http = require("http");
+// const https = require("https");
+// let clientHttp = http;
+// const url = new URL('https://dry-woodland-89666.herokuapp.com');
 
-clientHttp = (url.protocol == "https") ? https:clientHttp;
+// clientHttp = (url.protocol == "https") ? https:clientHttp;
 
-setInterval(function() {
-    https.get(url);
-}, 600000); 
+// setInterval(function() {
+//     https.get(url);
+// }, 600000); 
 
 dotenv.config();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -52,8 +52,6 @@ const transfer = async (nombreJugador, nombreOrigen, nombreDestino) => {
   let totalSalarioOrigen = plantillaOrigen.reduce((total, jugador) => total + jugador.sueldo , 0);
   let plantillaDestino = [...destino[0].plantilla, jugador ];
   let totalSalarioDestino = plantillaDestino.reduce((total, jugador) => total + jugador.sueldo, 0);
-  totalSalarioOrigen = totalSalarioOrigen.toFixed(2);
-  totalSalarioDestino = totalSalarioDestino.toFixed(2);
   totalSalarioOrigen = parseFloat(totalSalarioOrigen);
   totalSalarioDestino = parseFloat(totalSalarioDestino);
   console.log(typeof totalSalarioOrigen, totalSalarioOrigen);
