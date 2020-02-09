@@ -140,7 +140,7 @@ app.patch("/equipo/:loginCode", (req, res) => {
             patrocinador: req.body.patrocinador,
             plantilla: req.body.plantilla,
             totalSueldos: req.body.totalSueldos,
-            envaido: true
+            enviado: true
           }
         });
         res.json({
