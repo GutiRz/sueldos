@@ -13,16 +13,16 @@ export const App = () => {
       <Route
         exact={true}
         path="/"
-        component={LoginContainer} 
+        component={AllTeamsContainer} 
       />
       <Route
         path="/teams/:teamCode"
         component={TeamContainer}
       />
-      {/* <Route
+      <Route
         path="/sueldos"
         component={AllTeamsContainer}
-      /> */}
+      />
       <Route 
         path="/status"
         component={Status}
