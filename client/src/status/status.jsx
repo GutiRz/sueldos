@@ -11,7 +11,6 @@ export const Status = () => {
       .then(response => response.json())
       .then(data => {
         setTeams(data.sort((a, b) => (a.equipo > b.equipo ? 1 : -1)));
-        console.log(data)
       });
   }, []);
   return (
