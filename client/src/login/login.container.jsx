@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { generatePath } from 'react-router';
 import { LoginComponent } from './login.component';
 
@@ -24,17 +24,22 @@ export const LoginContainer = () => {
   }
 
   const doLogin = () => {
-    teamExist 
-    ? history.push({
-      pathname: generatePath('/:teamCode', {teamCode}),
-      state: { team }
-    }) 
-    : alert('El código de acceso no es correcto, ponte en contacto con Sesi')
+    teamExist
+      ? history.push({
+        pathname: generatePath('/teams/:teamCode', { teamCode }),
+        state: { team }
+      })
+      : alert('El código de acceso no es correcto, ponte en contacto con Sesi')
   }
 
-  return <LoginComponent 
-            teamCode={teamCode}
-            onTeamCodeUpdate={onTeamCodeUpdate}
-            onLogin={doLogin}
-            />
+  const onStatus = () => {
+    history.push('/status')
+  }
+
+  return <LoginComponent
+    teamCode={teamCode}
+    onTeamCodeUpdate={onTeamCodeUpdate}
+    onLogin={doLogin}
+    onStatus={onStatus}
+  />
 }

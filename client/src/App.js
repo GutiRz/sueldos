@@ -4,6 +4,7 @@ import {HashRouter, Switch, Route} from 'react-router-dom';
 import {LoginContainer} from './login';
 import {TeamContainer} from './team';
 import {AllTeamsContainer} from './allTeams';
+import {Status} from './status/status';
 
 export const App = () => {
   return (
@@ -12,15 +13,19 @@ export const App = () => {
       <Route
         exact={true}
         path="/"
-        component={AllTeamsContainer} 
+        component={LoginContainer} 
       />
       <Route
-        path="/:teamCode"
+        path="/teams/:teamCode"
         component={TeamContainer}
       />
-      <Route
+      {/* <Route
         path="/sueldos"
         component={AllTeamsContainer}
+      /> */}
+      <Route 
+        path="/status"
+        component={Status}
       />
     </Switch>
   </HashRouter>

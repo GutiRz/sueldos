@@ -139,7 +139,8 @@ app.patch("/equipo/:loginCode", (req, res) => {
           $set: {
             patrocinador: req.body.patrocinador,
             plantilla: req.body.plantilla,
-            totalSueldos: req.body.totalSueldos
+            totalSueldos: req.body.totalSueldos,
+            envaido: true
           }
         });
         res.json({

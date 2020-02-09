@@ -30,11 +30,13 @@ const useStyles = makeStyles((theme) =>
 
 export const LoginComponent = (props) => {
   const classes = useStyles({});
-  const {teamCode, onTeamCodeUpdate, onLogin} = props;
+  const {teamCode, onTeamCodeUpdate, onLogin, onStatus} = props;
 
   const onFieldUpdate = (e) => {
     onTeamCodeUpdate(e.target.value);
   } 
+
+  
   return (
     <div className={classes.root} >
       <img className={classes.imagen}src="https://i.ibb.co/TtKkvPP/Whats-App-Image-2019-08-26-at-13-25-32.jpg"/>
@@ -58,6 +60,12 @@ export const LoginComponent = (props) => {
       >
         Acceder
         </Button>
+    <Button
+      variant="contained"
+      onClick={() => onStatus()}
+    >
+      Ver envios
+    </Button>
     </div>
   )
 }
