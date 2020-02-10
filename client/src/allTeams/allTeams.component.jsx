@@ -131,7 +131,7 @@ export const AllTeamsComponent = () => {
           <Typography variant="h5" style={{ marginTop: "30px" }}>
             Total sueldos:{team.totalSueldos.toFixed(2)}
           </Typography>
-          <Chip variant="outlined" icon={<FaceIcon />} label={`Total jugadores:${team.plantilla.length}`} color={team.plantilla.length >=30 ? 'secondary' : 'default'}/>
+          <Chip variant="outlined" icon={<FaceIcon />} label={`Total jugadores:${team.plantilla.length}`} color={team.plantilla.length >=30 || team.plantilla.length <= 25 ? 'secondary' : 'default'}/>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
