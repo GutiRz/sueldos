@@ -14,6 +14,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import FaceIcon from '@material-ui/icons/FaceOutlined';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -130,6 +131,7 @@ export const AllTeamsComponent = () => {
           <Typography variant="h5" style={{ marginTop: "30px" }}>
             Total sueldos:{team.totalSueldos.toFixed(2)}
           </Typography>
+          <Chip variant="outlined" icon={<FaceIcon />} label={`Total jugadores:${team.plantilla.length}`} color={team.plantilla.length >=30 ? 'secondary' : 'default'}/>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
