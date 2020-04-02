@@ -13,7 +13,7 @@ export const App = () => {
       <Route
         exact={true}
         path="/"
-        component={AllTeamsContainer} 
+        component={LoginContainer} 
       />
       <Route
         path="/teams/:teamCode"
