@@ -5,6 +5,7 @@ import {LoginContainer} from './login';
 import {TeamContainer} from './team';
 import {AllTeamsContainer} from './allTeams';
 import {Status} from './status/status';
+import {Injuries} from './injuries/injuries';
 
 export const App = () => {
   return (
@@ -26,6 +27,10 @@ export const App = () => {
       <Route 
         path="/status"
         component={Status}
+      />
+      <Route 
+        path="/lesionados"
+        component={Injuries}
       />
     </Switch>
   </HashRouter>
